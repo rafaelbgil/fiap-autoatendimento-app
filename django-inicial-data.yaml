@@ -1,0 +1,86 @@
+- model: api.cliente
+  pk: 1
+  fields:
+    nome: joao silva
+    email: joao@teste.com
+    cpf: 12345678901
+
+- model: api.categoria
+  pk: 1
+  fields:
+    nome: lanches
+
+- model: api.categoria
+  pk: 2
+  fields:
+    nome: bebidas
+
+- model: api.categoria
+  pk: 3
+  fields:
+    nome: doces
+
+- model: api.produto
+  pk: 1
+  fields:
+    nome: x-bacon
+    descricao: hamburguer com queijo e bacon
+    preco: 10.90
+    categoria: 1
+    imagem_url: http://127.0.0.1/images/nao_implementado
+
+- model: api.produto
+  pk: 2
+  fields:
+    nome: x-tudo
+    descricao: hamburguer com todos os opcionais
+    preco: 18.90
+    categoria: 1
+    imagem_url: http://127.0.0.1/images/nao_implementado
+
+- model: api.produto
+  pk: 3
+  fields:
+    nome: Coca cola
+    descricao: bebida coca cola
+    preco: 7.0
+    categoria: 2
+    imagem_url: http://127.0.0.1/images/nao_implementado
+
+- model: api.produto
+  pk: 4
+  fields:
+    nome: Sorvete
+    descricao: sorvete de massa
+    preco: 7.0
+    categoria: 3
+    imagem_url: http://127.0.0.1/images/nao_implementado
+
+- model: api.pedido
+  pk: 1
+  fields:
+    cpf: 12345678901
+    valor: 25.90
+    status: aguardando_pagamento
+
+- model: api.itempedido
+  pk: 1
+  fields:
+    pedido: 1
+    nome: x-tudo
+    descricao: hamburguer com todos os opcionais
+    preco: 18.90
+    categoria: lanches
+    imagem_url: http://127.0.0.1/images/nao_implementado
+    quantidade: 1
+
+- model: api.itempedido
+  pk: 2
+  fields:
+    pedido: 1
+    nome: Coca cola
+    descricao: bebida coca cola
+    preco: 7.0
+    categoria: bebidas
+    imagem_url: http://127.0.0.1/images/nao_implementado
+    quantidade: 1

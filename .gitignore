@@ -1,0 +1,11 @@
+*.pyc
+.vscode
+__pycache__
+migrations/*
+db.sqlite3
+api/migrations/*
+api/migrations
+django-app/api/migrations/
+mysql-data/*
+django-app/static/*
+static/*
