@@ -10,3 +10,5 @@ mysql-data/*
 django-app/static/*
 static/*
 .idea/*
+.coverage
+.scannerwork/*
