@@ -1,6 +1,6 @@
 from .Categoria import Categoria
 
-def _validar_nome_categoria(nome: str|None) -> str:
+def _validar_nome_categoria(nome: str) -> str:
     if len(nome) > 40:
         raise Exception('Excedido o tamanho máximo de caracteres para categoria(max: 40).')
     if len(nome) == 0:
