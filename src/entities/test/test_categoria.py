@@ -29,5 +29,4 @@ class TestCategoriaFactory(unittest.TestCase):
 
         self.assertRaises(AttributeError, _validar_nome_categoria, nome)
 
-if __name__ == '__main__':
-    unittest.main()
+
