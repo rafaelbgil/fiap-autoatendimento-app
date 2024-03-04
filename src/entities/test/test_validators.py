@@ -25,3 +25,4 @@ class TestValidators(unittest.TestCase):
 
     def test_validator_nome_attribute_error(self):
         self.assertRaises(AttributeError,_validarNome, '')
+
