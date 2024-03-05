@@ -13,8 +13,6 @@ class ClienteFactory:
         if 'email' in dicionario_cliente:
             if validar_campos:
                 email = _validarEmail(dicionario_cliente['email'])
-            else:
-                email = dicionario_cliente['email']
 
         if 'uuid' in dicionario_cliente:
             if validar_campos:
@@ -25,8 +23,6 @@ class ClienteFactory:
         if 'nome' in dicionario_cliente:
             if validar_campos:
                 nome = _validarNome(dicionario_cliente['nome'])
-            else:
-                nome = dicionario_cliente['nome']
 
         if 'cpf' in dicionario_cliente:
             cpf = Cpf(cpf=dicionario_cliente['cpf']).cpf

@@ -1,5 +1,8 @@
+from __future__ import annotations
+
+
 class Cpf:
-    cpf: str | None
+    cpf: str
 
     def __init__(self, cpf: str):
         self.cpf = _validate_cpf(cpf)
@@ -11,7 +14,7 @@ class Cpf:
         return self.cpf
 
 
-def _validate_cpf(cpf: str | Cpf) -> str | None:
+def _validate_cpf(cpf: Cpf | str) -> str:
     if type(cpf) == Cpf:
         return cpf.cpf
     
