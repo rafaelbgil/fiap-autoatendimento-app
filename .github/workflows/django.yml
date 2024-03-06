@@ -39,7 +39,7 @@ jobs:
 
     - name: Realizando login no dockerhub
       env:
-        DOCKER_HUB_REPOSITORY: ${{ vars.DOCKER_HUB_REPOSITORY }}
+        DOCKER_HUB_REPOSITORY: ${{ env.DOCKER_HUB_REPOSITORY }}
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       run: 'docker login -u ${{ DOCKERHUB_USERNAME }} -p ${{ DOCKERHUB_PASSWORD }}'
