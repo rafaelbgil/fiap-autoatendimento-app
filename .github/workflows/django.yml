@@ -36,6 +36,16 @@ jobs:
     steps:
     - name: Assegurando copia do repositorio
       uses: actions/checkout@v4
+
+    - name: Realizando login no dockerhub
+      env:
+        DOCKER_HUB_REPOSITORY: ${{ vars.DOCKER_HUB_REPOSITORY }}
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      run: 'docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}'
+
     - name: Gerando imagem ${{ github.ref_name }}
-      run:  'docker buildx build -t rafaelbgil/fiap-postech-app:${{ github.ref_name }} .'
-      #run:  'docker buildx build . -f Dockerfile -tag rafaelbgil/fiap-postech-app:{{ github.ref_name }}'
+      run:  'docker buildx build -t ${{ DOCKER_HUB_REPOSITORY }}:${{ github.ref_name }} .'
+
+    - name: Realizando push para o dockerhub
+      run: 'docker push ${{ DOCKER_HUB_REPOSITORY }}:${{ github.ref_name }}'
