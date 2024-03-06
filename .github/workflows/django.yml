@@ -42,7 +42,6 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Realizando login no dockerhub
-
       run: 'docker login -u ${{ env.DOCKERHUB_USERNAME }} -p ${{ env.DOCKERHUB_PASSWORD }}'
 
     - name: Gerando imagem ${{ github.ref_name }}
