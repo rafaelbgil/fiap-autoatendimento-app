@@ -36,4 +36,5 @@ jobs:
     - name: Assegurando copia do repositorio
       uses: actions/checkout@v4
     - name: Gerando imagem {{ github.ref_name }}
-      run:  'docker buildx build . -f Dockerfile --tag rafaelbgil/fiap-postech-app:{{ github.ref_name }}'
+      run:  'docker buildx build .'
+      #run:  'docker buildx build . -f Dockerfile --tag rafaelbgil/fiap-postech-app:{{ github.ref_name }}'
