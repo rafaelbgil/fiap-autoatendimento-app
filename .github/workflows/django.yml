@@ -45,7 +45,11 @@ jobs:
       run: 'docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}'
 
     - name: Gerando imagem ${{ github.ref_name }}
+      env:
+        DOCKER_HUB_REPOSITORY: ${{ vars.DOCKER_HUB_REPOSITORY }}
       run:  'docker buildx build -t ${{ DOCKER_HUB_REPOSITORY }}:${{ github.ref_name }} .'
 
     - name: Realizando push para o dockerhub
+      env:
+        DOCKER_HUB_REPOSITORY: ${{ vars.DOCKER_HUB_REPOSITORY }}
       run: 'docker push ${{ DOCKER_HUB_REPOSITORY }}:${{ github.ref_name }}'
