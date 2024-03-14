@@ -12,6 +12,9 @@ class ClienteSerializer(serializers.Serializer):
     def create(self, validated_data):
         return Cliente.objects.create(**validated_data)
     
+class AuthSerializer(serializers.Serializer):
+    usuario = serializers.CharField(max_length=120)
+    senha = serializers.CharField(max_length=120)
 
 class CategoriaSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
