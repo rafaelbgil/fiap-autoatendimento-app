@@ -16,10 +16,8 @@ class AuthView(APIView):
         Api para **autenticar** cliente e receber token
         """
         try:
-            print(request.data)
             autenticacao = UseCaseAutenticarCliente.autenticar_cliente(cpf=request.data['usuario'],
                                                                        senha=request.data['senha'], auth=CognitoAuth)
-            print(autenticacao)
         except Exception as erro:
             return Response(data={'status': 'erro', 'detalhes': erro.__str__()}, status=status.HTTP_400_BAD_REQUEST)
         return Response(autenticacao, status=status.HTTP_200_OK)

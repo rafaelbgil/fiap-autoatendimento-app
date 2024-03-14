@@ -1,4 +1,3 @@
-from src.entities.Cliente import Cliente
 from src.usecases.interfaces.AuthClientInterface import AuthClientInterface
 class UseCaseAutenticarCliente:
     @staticmethod
