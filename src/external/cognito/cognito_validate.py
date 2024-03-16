@@ -10,4 +10,9 @@ class CognitoValidate:
     @staticmethod
     def validar_token(token: str):
         aws_client = CognitoValidate.get_aws_client()
-        return aws_client.get_user(AccessToken=token)
+        try:
+            token_validado = aws_client.get_user(AccessToken=token)
+        except:
+            raise Exception('Token invalido')
+
+        return token_validado
