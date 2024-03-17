@@ -75,7 +75,7 @@ class PedidoView(APIView):
         """
         Adiciona novo **pedido**
         """
-
+        print(request.META)
         if request.META.get('HTTP_AUTHORIZATION'):
             if 'Bearer' in request.META.get('HTTP_AUTHORIZATION'):
                 header = request.META.get('HTTP_AUTHORIZATION')
