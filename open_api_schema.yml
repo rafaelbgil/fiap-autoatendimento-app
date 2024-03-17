@@ -1,0 +1,853 @@
+openapi: 3.0.3
+info:
+  title: Api Autoatendimento Lanchonete
+  version: 1.0.0
+  description: Api de Autoatendimento de lanchones - Fiap Pos-tech
+paths:
+  /api/auth/:
+    post:
+      operationId: auth_create
+      description: Api para **autenticar** cliente e receber token
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+          description: ''
+  /api/categoria/:
+    get:
+      operationId: categoria_list
+      description: Api para listar categorias
+      summary: Obtém lista de categorias
+      tags:
+      - categoria
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+              examples:
+                ExemploDeUso:
+                  value:
+                  - id: 1
+                    nome: doces
+                  summary: Exemplo de uso
+          description: ''
+    post:
+      operationId: categoria_create
+      description: Api para adicionar categoria
+      summary: Adiciona nova categoria
+      tags:
+      - categoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+            examples:
+              ExemploDeUso:
+                value:
+                  nome: salgados
+                summary: Exemplo de uso
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoriaRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+              examples:
+                ExemploDeUso:
+                  value:
+                    id: 1
+                    nome: salgados
+                  summary: Exemplo de uso
+          description: ''
+  /api/categoria/{id}/:
+    get:
+      operationId: categoria_retrieve
+      description: Obtém dados de categoria selecionada
+      summary: Obtém dados de categoria selecionada
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - categoria
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+              examples:
+                ExemploDeUso:
+                  value:
+                    id: 1
+                    nome: salgados
+                  summary: Exemplo de uso
+          description: ''
+    delete:
+      operationId: categoria_destroy
+      description: Remove categoria selecionada
+      summary: Remove categoria selecionada
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - categoria
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/criar_usuario/:
+    post:
+      operationId: criar_usuario_create
+      description: Api para **autenticar** cliente e receber token
+      tags:
+      - criar_usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarUsuarioRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CriarUsuarioRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CriarUsuarioRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriarUsuario'
+          description: ''
+  /api/pedido/:
+    get:
+      operationId: pedido_retrieve
+      description: Obtém lista de **pedidos**
+      summary: Obtém lista de pedidos
+      tags:
+      - pedido
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+              examples:
+                ExemploDePedido:
+                  value:
+                  - id: 1
+                    cpf: '12345678901'
+                    valor: 10.9
+                    status: aguardando_pagamento
+                    lista_itens:
+                    - id: 1
+                      nome: Hamburguer
+                      preco: 10.9
+                      imagem_url: hamburger.png
+                      quantidade: 1
+                  summary: Exemplo de pedido
+          description: ''
+    post:
+      operationId: pedido_create
+      description: Adiciona novo **pedido**
+      summary: Adiciona novo pedido
+      tags:
+      - pedido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoRequest'
+            examples:
+              ExemploDePedido:
+                value:
+                  cpf: '12345678901'
+                  lista_itens:
+                  - id: 1
+                    quantidade: 1
+                summary: Exemplo de pedido
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PedidoRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PedidoRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+              examples:
+                ExemploDePedido:
+                  value:
+                  - id: 1
+                    cpf: '12345678901'
+                    valor: 10.9
+                    status: aguardando_pagamento
+                    lista_produtos:
+                    - id: 1
+                      nome: Hamburguer
+                      preco: 10.9
+                      imagem_url: hamburger.png
+                      quantidade: 1
+                  summary: Exemplo de pedido
+          description: ''
+  /api/pedido/{id}/:
+    get:
+      operationId: pedido_retrieve_2
+      description: Obtém informacao de **pedido** selecionado
+      summary: Obtém dados de pedido selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - pedido
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+              examples:
+                ExemploDeUso:
+                  value:
+                    numero: 1
+                    status: pronto
+                    cpf: '12345678901'
+                    valor: 403.3
+                    id: 1
+                    lista_itens:
+                    - nome: x-bacon
+                      descricao: null
+                      preco: 10.9
+                      id: null
+                      imagem_url: http://127.0.0.1/images/nao_implementado
+                      quantidade: 37
+                  summary: Exemplo de uso
+          description: ''
+  /api/pedido/{id}/atualizarStatus/:
+    post:
+      operationId: pedido_atualizarStatus_create
+      description: Atualiza status do **pedido**
+      summary: Atualiza status do pedido
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - pedido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoRequest'
+            examples:
+              DefinirComoPagamentoRecebidoEPedidoNaFila:
+                value:
+                  status: recebido
+                summary: Definir como pagamento recebido e pedido na fila
+              DefinirComoPedidoEmPreparacao:
+                value:
+                  status: preparando
+                summary: Definir como pedido em preparacao
+              DefinirOPedidoComoProntoParaOClienteRetirar:
+                value:
+                  status: pronto
+                summary: Definir o pedido como pronto para o cliente retirar
+              DefinirOPedidoComoFinalizadoApósOClienteRetirar:
+                value:
+                  status: finalizado
+                summary: Definir o pedido como finalizado após o cliente retirar
+              DefinirOPedidoComoCancelado:
+                value:
+                  status: cancelado
+                summary: Definir o pedido como cancelado
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PedidoRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PedidoRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedido'
+          description: ''
+  /api/pedido/mercadopago/{uuid}/:
+    post:
+      operationId: pedido_mercadopago_create
+      description: Url webhook mercadopago
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+        required: true
+      tags:
+      - pedido
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/produto/:
+    get:
+      operationId: produto_list
+      description: Api para obter lista de **produtos**
+      summary: Obtém lista de produtos
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+          description: ''
+    post:
+      operationId: produto_create
+      description: Api para cadastrar **produto**
+      summary: Adiciona novo produto
+      tags:
+      - produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+  /api/produto/{id}/:
+    get:
+      operationId: produto_retrieve
+      description: Api para visualizar dados de produto selecionado
+      summary: Obtém dados de produto selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: Json Response
+        '400':
+          description: Validation error
+    put:
+      operationId: produto_update
+      description: Api para atualizar produto selecionado
+      summary: Atualiza produto selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+    delete:
+      operationId: produto_destroy
+      description: Api para remover produto selecionado
+      summary: Remove produto selecionado
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/produto/findByCategoria/{categoria}/:
+    get:
+      operationId: produto_findByCategoria_retrieve
+      description: Api para obter lista de produtos por categoria
+      summary: Obtém dados de produto selecionado
+      parameters:
+      - in: path
+        name: categoria
+        schema:
+          type: string
+        required: true
+      tags:
+      - produto
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: Lista de Produtos
+        '404':
+          description: Categoria não encontrada
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Auth:
+      type: object
+      properties:
+        usuario:
+          type: string
+          maxLength: 120
+        senha:
+          type: string
+          maxLength: 120
+      required:
+      - senha
+      - usuario
+    AuthRequest:
+      type: object
+      properties:
+        usuario:
+          type: string
+          minLength: 1
+          maxLength: 120
+        senha:
+          type: string
+          minLength: 1
+          maxLength: 120
+      required:
+      - senha
+      - usuario
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 40
+      required:
+      - id
+      - nome
+    CategoriaRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 1
+          maxLength: 40
+      required:
+      - nome
+    CriarUsuario:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 120
+        senha:
+          type: string
+          maxLength: 120
+        email:
+          type: string
+          maxLength: 120
+        cpf:
+          type: string
+          maxLength: 11
+      required:
+      - cpf
+      - email
+      - nome
+      - senha
+    CriarUsuarioRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 1
+          maxLength: 120
+        senha:
+          type: string
+          minLength: 1
+          maxLength: 120
+        email:
+          type: string
+          minLength: 1
+          maxLength: 120
+        cpf:
+          type: string
+          minLength: 1
+          maxLength: 11
+      required:
+      - cpf
+      - email
+      - nome
+      - senha
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        cpf:
+          type: string
+          maxLength: 11
+        valor:
+          type: number
+          format: double
+        status:
+          type: string
+          readOnly: true
+        lista_itens:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - lista_itens
+      - status
+      - valor
+    PedidoRequest:
+      type: object
+      properties:
+        cpf:
+          type: string
+          minLength: 1
+          maxLength: 11
+        valor:
+          type: number
+          format: double
+      required:
+      - valor
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 40
+        preco:
+          type: number
+          format: double
+        id_categoria:
+          type: integer
+        descricao:
+          type: string
+          maxLength: 1024
+        imagem_url:
+          type: string
+          maxLength: 1024
+      required:
+      - id
+      - nome
+      - preco
+    ProdutoRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 1
+          maxLength: 40
+        preco:
+          type: number
+          format: double
+        id_categoria:
+          type: integer
+        descricao:
+          type: string
+          minLength: 1
+          maxLength: 1024
+        imagem_url:
+          type: string
+          minLength: 1
+          maxLength: 1024
+      required:
+      - nome
+      - preco
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
