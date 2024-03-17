@@ -7,8 +7,10 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     #api endpoints
-    path('cliente/', views.ClienteView.as_view(), name="Lista clientes"),
-    path('cliente/<str:uuid>/', views.ClienteDetalhesView.as_view()),
+    #path('cliente/', views.ClienteView.as_view(), name="Lista clientes"),
+    #path('cliente/<str:uuid>/', views.ClienteDetalhesView.as_view()),
+    path('auth/', views.AuthView.as_view()),
+    path('criar_usuario/', views.CriarUsuarioView.as_view()),
     path('categoria/', views.CategoriaView.as_view()),
     path('categoria/<str:id>/', views.CategoriaDetalhesView.as_view()),
     path('produto/', views.ProdutoView.as_view()),

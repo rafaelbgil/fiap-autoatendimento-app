@@ -38,7 +38,8 @@ class ClienteView(APIView):
     @extend_schema(summary='Adiciona novo cliente', examples=[
         OpenApiExample('Exemplo de uso',
                        value={"uuid": "lbbcdd85853f4fbd920616f4bd2d8e66",
-                              "nome": 'Luis Silva', "email": 'luis@teste.com', "cpf": "98345678901"},
+                              "nome": 'Luis Silva', "email": 'luis@teste.com', "cpf": "98345678901",
+                              },
                        request_only=False,
                        response_only=True,
                        ),

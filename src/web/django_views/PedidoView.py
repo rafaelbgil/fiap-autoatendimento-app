@@ -1,6 +1,9 @@
 from src.db.django_orm.PedidoRepositoryOrm import PedidoRepositoryOrm
+from src.entities.PedidoFactory import PedidoFactory
 from src.usecases.UseCasePedido import UseCasePedido
 from src.presenters.FormatPedido import FormatPedido
+from src.external.cognito.cognito_validate import CognitoValidate
+
 
 from api.serializers import PedidoSerializer
 from rest_framework.views import APIView
@@ -72,6 +75,23 @@ class PedidoView(APIView):
         """
         Adiciona novo **pedido**
         """
+        print(request.META)
+        if request.META.get('HTTP_AUTHORIZATION'):
+            if 'Bearer' in request.META.get('HTTP_AUTHORIZATION'):
+                header = request.META.get('HTTP_AUTHORIZATION')
+                token = header.split(" ")[1]
+                pedido_dict = request.data
+                try:
+                    token_validado = CognitoValidate.validar_token(token)
+                    pedido_dict['cpf'] = token_validado['Username']
+                    pedido = PedidoRepositoryOrm.addPedidoFromDict(
+                        dicionario_pedido=pedido_dict)
+                    pedido_dict = FormatPedido.fromPedidoToDict(pedido)
+                    return Response(data=pedido_dict, status=status.HTTP_201_CREATED)
+                except:
+                    return Response(data={'token informado invalido'}, status=status.HTTP_400_BAD_REQUEST)
+
+
         pedido = PedidoRepositoryOrm.addPedidoFromDict(
             dicionario_pedido=request.data)
         pedido_dict = FormatPedido.fromPedidoToDict(pedido)
